@@ -18,7 +18,10 @@ Vagrant.configure("2") do |config|
           ansible.playbook = "Playbook.yml"
           ansible.install_mode = "pip"
         end
-    end
+        controle.vm.provision "ansible_local" do |ansible| 
+          ansible.playbook = "installdocker.yml" 
+          ansible.install_mode = "pip" 
+        end
     config.vm.define "web" do |web|
       web.vm.box = "shekeriev/debian-11"
       web.vm.hostname ="web"
@@ -42,6 +45,8 @@ Vagrant.configure("2") do |config|
         vb.name = "db"
       end
     end
+  end
+end
 #    (1..3).each do |i|
 #   config.vm.define "vm#{i}" do |node|
 #      node.vm.box = "shekeriev/debian-11"
@@ -51,6 +56,5 @@ Vagrant.configure("2") do |config|
 #        vb.memory = "512"
 #        vb.cpus = "1"
 #      end
-#    end
-#  end
-end
+#   end
+# end
