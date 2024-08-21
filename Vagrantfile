@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
         controle.vm.network "private_network", ip: "172.17.177.100"
         controle.vm.provider "virtualbox" do |vb|
           vb.gui = false
-          vb.memory = "1024"
+          vb.memory = "4096"
           vb.cpus = "1"
           vb.name = "controle"
         end
@@ -25,7 +25,9 @@ Vagrant.configure("2") do |config|
         controle.vm.provision "ansible_local" do |ansible| 
           ansible.playbook = "installjenkins.yml" 
           ansible.install_mode = "pip" 
-        end
+    end
+	end
+	
     config.vm.define "web" do |web|
       web.vm.box = "shekeriev/debian-11"
       web.vm.hostname ="web"
@@ -37,6 +39,7 @@ Vagrant.configure("2") do |config|
         vb.name = "web"
       end
     end
+	
     config.vm.define "db" do |db|
       db.vm.box = "shekeriev/debian-11"
       db.vm.hostname ="db"
@@ -47,7 +50,6 @@ Vagrant.configure("2") do |config|
         vb.memory = "512"
         vb.cpus = "1"
         vb.name = "db"
-      end
     end
   end
 end
